@@ -1,19 +1,18 @@
 package utils;
 
-import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigReader {
-    private static final Properties properties = new Properties();
+    private static Properties properties = new Properties();
 
     static {
-        try (InputStream input = ConfigReader.class.getClassLoader().getResourceAsStream("config.properties")) {
-            if (input == null) {
-                throw new RuntimeException("config.properties file not found in classpath");
-            }
+        String fixedPath = System.getProperty("user.dir") + "/src/test/resources/config.properties";
+        try (FileInputStream input = new FileInputStream(fixedPath)) {
             properties.load(input);
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to load config.properties file.", e);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load config.properties from fixed path: " + fixedPath, e);
         }
     }
 

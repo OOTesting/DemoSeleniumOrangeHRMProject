@@ -11,11 +11,10 @@ public class LoginPositiveTest extends BaseTest {
 
     @Test
     public void testValidLogin() {
-        String jsonPath = System.getProperty("user.dir") + "src/test/java/data/Admin.JSON";
-        JsonObject loginData = JsonDataReader.readJson(jsonPath);
+        JsonObject adminData = JsonDataReader.readJson("Admin.json");
 
-        String username = loginData.get("username").getAsString();
-        String password = loginData.get("password").getAsString();
+        String username = adminData.get("username").getAsString();
+        String password = adminData.get("password").getAsString();
 
         LoginPage loginPage = new LoginPage(driver, wait);
         loginPage.logIntoApplication(username, password);

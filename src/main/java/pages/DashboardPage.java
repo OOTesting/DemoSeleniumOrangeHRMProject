@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class DashboardPage extends BasePage {
     private By dashboardHeader = By.xpath("//h6[text()='Dashboard']");
     private By mainMenu = By.cssSelector(".oxd-main-menu");
-    private By pimMenu = By.xpath("//div[@class='oxd-main-menu']//span[text()='PIM']");
+    private By pimMenu = By.xpath("//span[text()='PIM']");
 
     public DashboardPage(WebDriver driver, WebDriverWait wait) {
         super(driver, wait);

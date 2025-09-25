@@ -1,64 +1,52 @@
 package utils;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.PageLoadStrategy;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.apache.commons.io.FileUtils;
-import java.io.File;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 
 public class BaseTest {
+
     protected WebDriver driver;
     protected WebDriverWait wait;
-    protected String baseUrl;
 
     @BeforeMethod
     public void setUp() {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
 
-        baseUrl = ConfigReader.get("baseURL");
-        String browser = ConfigReader.get("browser");
-
-        if (browser.equalsIgnoreCase("chrome")) {
-            WebDriverManager.chromedriver().setup();
-            ChromeOptions options = new ChromeOptions();
-            options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-            driver = new ChromeDriver(options);
-
-        } else if (browser.equalsIgnoreCase("firefox")) {
-            WebDriverManager.firefoxdriver().setup();
-            FirefoxOptions options = new FirefoxOptions();
-            options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-            driver = new FirefoxDriver(options);
-
-        } else {
-            throw new IllegalArgumentException("Unsupported browser: " + browser);
-        }
-
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().window().maximize();
-        driver.get(baseUrl);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+        // Initialize explicit wait
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        // Navigate to base URL
+        driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
     }
 
 
-    public String getScreenshot(String testName) throws IOException {
+    public String getScreenshot(String testName) {
         File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String path = System.getProperty("user.dir") + "/screenshots/" + testName + ".png";
-        File dest = new File(path);
-        FileUtils.copyFile(src, dest);
-        return path;
 
+        try {
+            FileHandler.copy(src, new File(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return path;
     }
+
     @AfterMethod
     public void tearDown() {
         if (driver != null) {

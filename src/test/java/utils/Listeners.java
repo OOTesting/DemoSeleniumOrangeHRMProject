@@ -39,7 +39,7 @@ public class Listeners extends BaseTest implements ITestListener {
         }
 
         try {
-            String filePath = getScreenshot(result.getMethod().getMethodName(), driver);
+            String filePath = getScreenshot(result.getMethod().getMethodName());
             attachScreenshot(filePath);
         } catch (IOException e) {
             e.printStackTrace();

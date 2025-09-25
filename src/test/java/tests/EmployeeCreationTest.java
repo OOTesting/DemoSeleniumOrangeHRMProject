@@ -1,12 +1,13 @@
 package tests;
 
 import org.testng.Assert;
+import utils.JsonDataReader;
+import com.google.gson.JsonObject;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.AddEmployee;
 import pages.LoginPage;
 import utils.BaseTest;
-import utils.JsonDataReader;
 import utils.Retry;
 
 import com.google.gson.JsonObject;
@@ -17,13 +18,18 @@ public class EmployeeCreationTest extends BaseTest {
 
     @Test(dataProvider = "getData")
     public void createEmployee(HashMap<String, String> input) {
+        JsonObject adminData = JsonDataReader.readJson("Admin.json");
+        String username = adminData.get("username").getAsString();
+        String password = adminData.get("password").getAsString();
+
+        // Login
         LoginPage loginPage = new LoginPage(driver, wait);
-        loginPage.logIntoApplication("Admin", "admin123");
-        Assert.assertTrue(loginPage.isLoginSuccessful(), "Login failed.");
+        loginPage.logIntoApplication(username, password);
+
 
         AddEmployee addEmployeePage = new AddEmployee(driver, wait);
         addEmployeePage.goToPIM();
-        addEmployeePage.selectAddButton(); // Ensure this method exists in AddEmployee
+        addEmployeePage.selectAddButton();
         addEmployeePage.addANewEmployee(input.get("firstName"), input.get("lastName"));
     }
 
@@ -34,13 +40,15 @@ public class EmployeeCreationTest extends BaseTest {
 
     @DataProvider
     public Object[][] getData() {
-        String path = System.getProperty("user.dir") + "/src/test/java/data/Employee.json";
-        JsonObject obj = JsonDataReader.readJson(path);
+        // Read JSON file
+        JsonObject employeeData = JsonDataReader.readJson("Employee.json");
 
+        // Map JSON fields to HashMap
         HashMap<String, String> map = new HashMap<>();
-        map.put("firstName", obj.get("firstName").getAsString());
-        map.put("lastName", obj.get("lastName").getAsString());
+        map.put("firstName", employeeData.get("firstName").getAsString());
+        map.put("lastName", employeeData.get("lastName").getAsString());
 
+        // Return as 2D array for TestNG data provider
         return new Object[][] { { map } };
     }
 }

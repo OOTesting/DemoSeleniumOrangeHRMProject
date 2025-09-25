@@ -8,7 +8,10 @@ import java.io.IOException;
 
 public class JsonDataReader {
 
-    public static JsonObject readJson(String filePath) {
+    public static JsonObject readJson(String fileName) {
+        // Build a relative path from project root
+        String filePath = System.getProperty("user.dir") + "/src/test/java/data/" + fileName;
+
         try (FileReader reader = new FileReader(filePath)) {
             return JsonParser.parseReader(reader).getAsJsonObject();
         } catch (IOException e) {
