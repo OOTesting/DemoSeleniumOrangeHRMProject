@@ -64,7 +64,7 @@ mvn clean test -Dtest=LoginPositiveTest  [Single test case]
 
 
 ```bash
-allure generate target/allure-results -o target/allure-report --clean && allure open target/allure-report [Run after test run]
+allure open target/allure-report [Run after test run]
 ```
 
 This command will compile the test classes and run the TestNG test suite defined in the testng.xml file.
