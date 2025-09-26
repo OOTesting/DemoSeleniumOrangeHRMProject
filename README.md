@@ -35,7 +35,7 @@ This project aims to automate some of the user interface tests on the OrangeHRM 
 1. **Clone the Repository**
 
    ```bash
-   git clone 
+   git clone https://github.com/OOTesting/DemoSeleniumOrangeHRMProject.git
    ```
 2. **Install Dependencies**
 
