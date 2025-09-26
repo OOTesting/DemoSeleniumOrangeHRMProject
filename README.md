@@ -41,7 +41,7 @@ This project aims to automate some of the user interface tests on the OrangeHRM 
 
    Ensure you have the following installed:
 
-    - Java Development Kit (JDK)
+    - Java Development Kit (JDK) [I'm using JDK 21]
     - Apache Maven
 
    Install Maven dependencies:
@@ -56,11 +56,15 @@ To execute the tests, use the following Maven command:
 
 ```bash
 mvn test
+
+OR
+
+mvn clean test -Dtest=LoginPositiveTest  [Single test case]
 ```
 
 
 ```bash
-allure generate target/allure-results -o target/allure-report --clean && allure open target/allure-report
+allure generate target/allure-results -o target/allure-report --clean && allure open target/allure-report [Run after test run]
 ```
 
 This command will compile the test classes and run the TestNG test suite defined in the testng.xml file.
