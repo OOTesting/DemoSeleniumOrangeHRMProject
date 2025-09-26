@@ -1,11 +1,26 @@
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="LoginSuite">
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="AllTests">
+    <!-- Listeners -->
     <listeners>
+        <!-- Allure TestNG listener for reporting -->
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+
+        <!-- Custom listener for logging, screenshots, etc. -->
         <listener class-name="utils.Listeners"/>
     </listeners>
-    <test name="LoginTest">
+
+    <!-- Employee Tests -->
+    <test name="EmployeeTests">
+        <classes>
+            <class name="tests.EmployeeCreationTest"/>
+        </classes>
+    </test>
+
+    <!-- Login Tests -->
+    <test name="LoginTests">
         <classes>
             <class name="tests.LoginPositiveTest"/>
+            <class name="tests.LoginNegativeTest"/>
         </classes>
     </test>
 </suite>

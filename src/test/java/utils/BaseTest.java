@@ -13,7 +13,10 @@ import org.testng.annotations.BeforeMethod;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import io.qameta.allure.testng.AllureTestNg;
+import org.testng.annotations.Listeners;
 
+@Listeners({ AllureTestNg.class })
 public class BaseTest {
 
     protected WebDriver driver;

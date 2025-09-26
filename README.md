@@ -9,8 +9,8 @@ This repository contains a Selenium-based automation framework developed to cond
 - [Setup and Installation](#setup-and-installation)
 - [Running the Tests](#running-the-tests)
 - [Test Reporting](#test-reporting)
-- [Contributing](#contributing)
-- [License](#license)
+
+
 
 ## Introduction
 
@@ -59,16 +59,21 @@ To execute the tests, use the following Maven command:
 mvn test
 ```
 
+
+```bash
+allure generate target/allure-results -o target/allure-report --clean && allure open target/allure-report
+```
+
 This command will compile the test classes and run the TestNG test suite defined in the testng.xml file.
 
 ## Test Reporting
 
 The project uses Allure Reports to generate detailed and visually appealing test reports. 
-After running the tests, the report will be generated in the test-output directory.
+After running the tests, the report will be generated in the allure-report directory.
 
 # Accessing the Report
 
-1. Navigate to the test-output directory.
+1. Navigate to the allure-report directory or wait until the webserver and the report is displayed
 2. Open the Allure HTML report file in a web browser to view the test results.
 
 The report includes detailed information about each test, including the steps executed, the status (pass/fail), and any screenshots captured during the test execution.

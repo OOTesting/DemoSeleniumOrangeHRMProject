@@ -1,54 +1,66 @@
 package tests;
 
 import org.testng.Assert;
-import utils.JsonDataReader;
-import com.google.gson.JsonObject;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.AddEmployee;
+import pages.ViewNewEmployee;
 import pages.LoginPage;
 import utils.BaseTest;
-import utils.Retry;
+import utils.JsonDataReader;
+import utils.Log;
 
+import io.qameta.allure.*;
+
+import org.slf4j.Logger;
+import com.github.javafaker.Faker;
 import com.google.gson.JsonObject;
+import utils.SlowMotionHelper;
 
-import java.util.HashMap;
-
+@Feature("Add Employee")
 public class EmployeeCreationTest extends BaseTest {
 
-    @Test(dataProvider = "getData")
-    public void createEmployee(HashMap<String, String> input) {
+    private static final Logger log = Log.getLogger(EmployeeCreationTest.class);
+    private Faker faker = new Faker();
+
+    @Test(description = "Create new employee with random data and check data matches")
+    @Severity(SeverityLevel.BLOCKER)
+    public void createEmployee() {
+        // Generate random first and last name
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+        log.info("Generated employee: {} {}", firstName, lastName);
+
+        // Read admin credentials from JSON
         JsonObject adminData = JsonDataReader.readJson("Admin.json");
         String username = adminData.get("username").getAsString();
         String password = adminData.get("password").getAsString();
 
         // Login
+        log.info("Logging in with admin credentials");
         LoginPage loginPage = new LoginPage(driver, wait);
         loginPage.logIntoApplication(username, password);
 
+        SlowMotionHelper slow = new SlowMotionHelper(driver, 3000);
 
+        // Add new employee
+        log.info("Navigating to PIM and adding a new employee");
         AddEmployee addEmployeePage = new AddEmployee(driver, wait);
         addEmployeePage.goToPIM();
         addEmployeePage.selectAddButton();
-        addEmployeePage.addANewEmployee(input.get("firstName"), input.get("lastName"));
-    }
+        slow.click(addEmployeePage.addANewEmployee(firstName, lastName));
 
-    @Test(dependsOnMethods = { "createEmployee" }, dataProvider = "getData", retryAnalyzer = Retry.class)
-    public void verifyEmployeeCreation(HashMap<String, String> input) {
-        Assert.assertTrue(true, "Employee verification placeholder");
-    }
+        // Verify that employee has been added correctly
+        log.info("Verifying that the employee was created successfully");
+        ViewNewEmployee viewEmployeePage = new ViewNewEmployee(driver, wait);
 
-    @DataProvider
-    public Object[][] getData() {
-        // Read JSON file
-        JsonObject employeeData = JsonDataReader.readJson("Employee.json");
+        // Make sure your ViewNewEmployee class has these getter methods:
+        String actualFirstName = viewEmployeePage.getFirstNameField();
+        String actualLastName = viewEmployeePage.getLastNewNameField();
 
-        // Map JSON fields to HashMap
-        HashMap<String, String> map = new HashMap<>();
-        map.put("firstName", employeeData.get("firstName").getAsString());
-        map.put("lastName", employeeData.get("lastName").getAsString());
+        log.info("Expected first name: {}, Actual first name: {}", firstName, actualFirstName);
+        log.info("Expected last name: {}, Actual last name: {}", lastName, actualLastName);
 
-        // Return as 2D array for TestNG data provider
-        return new Object[][] { { map } };
+        Assert.assertEquals(actualFirstName, firstName, "First name does not match!");
+        Assert.assertEquals(actualLastName, lastName, "Last name does not match!");
     }
 }
