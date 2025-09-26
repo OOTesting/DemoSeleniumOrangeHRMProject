@@ -47,7 +47,7 @@ public class EmployeeCreationTest extends BaseTest {
         AddEmployee addEmployeePage = new AddEmployee(driver, wait);
         addEmployeePage.goToPIM();
         addEmployeePage.selectAddButton();
-        slow.click(addEmployeePage.addANewEmployee(firstName, lastName));
+        addEmployeePage.addANewEmployee(firstName, lastName);
 
         // Verify that employee has been added correctly
         log.info("Verifying that the employee was created successfully");

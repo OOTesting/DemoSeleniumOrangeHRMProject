@@ -1,5 +1,5 @@
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="AllTests">
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="AllTests" verbose="2" parallel="tests" thread-count="2">
     <!-- Listeners -->
     <listeners>
         <!-- Allure TestNG listener for reporting -->
@@ -10,14 +10,14 @@
     </listeners>
 
     <!-- Employee Tests -->
-    <test name="EmployeeTests">
+    <test name="EmployeeTests" parallel="classes" thread-count="2">
         <classes>
             <class name="tests.EmployeeCreationTest"/>
         </classes>
     </test>
 
     <!-- Login Tests -->
-    <test name="LoginTests">
+    <test name="LoginTests" parallel="classes" thread-count="2">
         <classes>
             <class name="tests.LoginPositiveTest"/>
             <class name="tests.LoginNegativeTest"/>
