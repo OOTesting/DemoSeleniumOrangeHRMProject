@@ -14,15 +14,14 @@ This repository contains a Selenium-based automation framework developed to cond
 
 ## Introduction
 
-This project aims to automate some of the user interface tests on the OrangeHRM website to ensure its functionality 
-and reliability. 
+This project aims to automate some of the user interface tests on the OrangeHRM website 
 
 ## Features
 
-- **End-to-End UI Testing**: Comprehensive test coverage for various functionalities of the OrangeHRM website.
+- **End-to-End UI Testing**: Test coverage for various functionalities of the OrangeHRM website.
 - **Selenium WebDriver**: Utilized for interacting with the web elements and performing actions.
 - **TestNG**: Employed for organizing and managing test cases, providing powerful annotations and reporting capabilities.
-- **Extent Reports**: Integrated to generate detailed and visually appealing reports of the test execution.
+- **Allure Reports**: Integrated to generate detailed and visually appealing reports of the test execution.
 
 ## Technologies Used
 
@@ -78,12 +77,4 @@ After running the tests, the report will be generated in the allure-report direc
 
 The report includes detailed information about each test, including the steps executed, the status (pass/fail), and any screenshots captured during the test execution.
 
-## Contributing
 
-Contributions are welcome! Please follow these steps to contribute:
-
-1. Fork the repository.
-2. Create a new branch (git checkout -b feature-branch).
-3. Commit your changes (git commit -m 'Add some feature').
-4. Push to the branch (git push origin feature-branch).
-5. Create a new Pull Request
