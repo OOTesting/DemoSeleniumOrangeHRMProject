@@ -14,8 +14,7 @@ This repository contains a Selenium-based automation framework developed to cond
 
 ## Introduction
 
-This project aims to automate some of the user interface tests on the OrangeHRM website to ensure its functionality 
-and reliability. 
+This project aims to automate some of the user interface tests on the OrangeHRM website to ensure its functionaltiy
 
 ## Features
 
