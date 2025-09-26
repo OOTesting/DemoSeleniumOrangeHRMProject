@@ -18,7 +18,7 @@ This project aims to automate some of the user interface tests on the OrangeHRM 
 
 ## Features
 
-- **End-to-End UI Testing**: Test coverage for various functionalities of the OrangeHRM website.
+- **End-to-End UI Testing**: Test coverage for various functionalities of the OrangeHRM website. It should be noted, this is evoling and will change over time]
 - **Selenium WebDriver**: Utilized for interacting with the web elements and performing actions.
 - **TestNG**: Employed for organizing and managing test cases, providing powerful annotations and reporting capabilities.
 - **Allure Reports**: Integrated to generate detailed and visually appealing reports of the test execution.
