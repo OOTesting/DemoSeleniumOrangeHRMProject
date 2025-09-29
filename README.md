@@ -14,14 +14,15 @@ This repository contains a Selenium-based automation framework developed to cond
 
 ## Introduction
 
-This project aims to automate some of the user interface tests on the OrangeHRM website to ensure its functionaltiy
+This project aims to automate some of the user interface tests on the OrangeHRM website to ensure its functions correctly.
+Please note this is still a work in progress, and so some might work and others might not.
 
 ## Features
 
 - **End-to-End UI Testing**: Comprehensive test coverage for various functionalities of the OrangeHRM website.
 - **Selenium WebDriver**: Utilized for interacting with the web elements and performing actions.
 - **TestNG**: Employed for organizing and managing test cases, providing powerful annotations and reporting capabilities.
-- **Extent Reports**: Integrated to generate detailed and visually appealing reports of the test execution.
+- **Allure Reports**: Integrated to generate detailed and visually appealing reports of the test execution.
 
 ## Technologies Used
 
@@ -56,11 +57,23 @@ To execute the tests, use the following Maven command:
 
 ```bash
 mvn test
+
+OR
+
+mvn clean test -Dtest=LoginPositiveTest  [Single test case]
+
+
+EmployeCreation
+LoginPositiveTest
+LoginNegativeTest 
+
+(Tests that are working)
+
 ```
 
 
 ```bash
-allure generate target/allure-results -o target/allure-report --clean && allure open target/allure-report
+allure open target/allure-report
 ```
 
 This command will compile the test classes and run the TestNG test suite defined in the testng.xml file.
